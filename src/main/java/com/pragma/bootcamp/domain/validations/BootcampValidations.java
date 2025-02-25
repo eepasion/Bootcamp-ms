@@ -28,7 +28,7 @@ public class BootcampValidations {
     }
 
     private static void validateDescription(String description) {
-        if (description.isEmpty()) {
+        if (description==null || description.isEmpty()) {
             throw new BusinessException(ErrorMessages.BOOTCAMP_NEEDS_DESCRIPTION);
         }
         if (description.length() > 90) {
