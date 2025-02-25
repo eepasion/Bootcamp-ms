@@ -33,4 +33,14 @@ public class BootcampHandlerImpl {
                     return ServerResponse.status(HttpStatus.CREATED).bodyValue(response);
                 });
     }
+
+    public Mono<ServerResponse> getAllBootcamps(ServerRequest request) {
+        int page = Integer.parseInt(request.queryParam("page").orElse("1"));
+        int size = Integer.parseInt(request.queryParam("size").orElse("10"));
+        String sortBy = request.queryParam("sortBy").orElse(null);
+        String sort = request.queryParam("sort").orElse(null);
+        return bootcampServicePort.gettAllBootcampsBy(page, size, sortBy, sort)
+                .collectList()
+                .flatMap(bootcamps->ServerResponse.ok().bodyValue(bootcamps));
+    }
 }

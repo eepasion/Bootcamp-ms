@@ -17,6 +17,24 @@ public class BootcampValidations {
         validateCapabilities(bootcamp.capabilities());
     }
 
+    public static void validateBootcampSort(int page, int size, String sortBy, String sort) {
+        if (page < 1) {
+            throw new BusinessException(ErrorMessages.BOOTCAMP_PARAM_PAGE_LESS_ZERO);
+        }
+        if (size < 1) {
+            throw new BusinessException(ErrorMessages.BOOTCAMP_PARAM_SIZE_LESS_ZERO);
+        }
+        if (!"ASC".equalsIgnoreCase(sort) && !"DESC".equalsIgnoreCase(sort) && sort != null) {
+            throw new BusinessException(ErrorMessages.BOOTCAMP_SORT_FORMAT);
+        }
+        if (!"name".equalsIgnoreCase(sortBy) && !"cap".equalsIgnoreCase(sortBy) && sortBy != null) {
+            throw new BusinessException(ErrorMessages.BOOTCAMP_SORT_BY_FORMAT);
+        }
+        if((sort != null && sortBy == null) || (sort == null && sortBy != null)) {
+            throw new BusinessException(ErrorMessages.BOOTCAMP_SORT_BY_NO_HAS_SORT);
+        }
+    }
+
 
     private static void validateName(String name) {
         if (name == null || name.isEmpty()) {

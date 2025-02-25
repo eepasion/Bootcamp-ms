@@ -14,7 +14,11 @@ public enum ErrorMessages {
     BOOTCAMP_NEEDS_DESCRIPTION(400, "El bootcamp debe tener una descripcion."),
     BOOTCAMP_NAME_SIZE(400, "El nombre de El bootcamp debe tener un maximo de 50 caracteres."),
     BOOTCAMP_DESCRIPTION_SIZE(400, "La descripcion de El bootcamp debe tener un maximo de 90 caracteres."),
-    ;
+    BOOTCAMP_SORT_FORMAT(400, "El parametro sort debe ser 'asc' o 'desc'."),
+    BOOTCAMP_SORT_BY_FORMAT(400, "El parametro sortBy debe ser 'name' o 'cap'."),
+    BOOTCAMP_SORT_BY_NO_HAS_SORT(400, "El parametro sortBy no debe estar vacio si el parametro sort no esta vacio."),
+    BOOTCAMP_PARAM_SIZE_LESS_ZERO(400, "El parametro size no debe ser menor a 1"),
+    BOOTCAMP_PARAM_PAGE_LESS_ZERO(400, "El parametro page no debe ser menor a 1");;
 
     private final Number code;
     private final String message;
