@@ -3,6 +3,8 @@ package com.pragma.bootcamp.infrastructure.entrypoints;
 import com.pragma.bootcamp.application.dto.BootcampRequestDto;
 import com.pragma.bootcamp.application.handler.BootcampHandlerImpl;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -44,6 +46,24 @@ public class BootcampRouterConfig {
                             }
                     )
             ),
+            @RouterOperation(
+                    path = "/bootcamp", beanClass = BootcampHandlerImpl.class, beanMethod = "getAllBootcamps",
+                    method = RequestMethod.GET,
+                    operation = @Operation(
+                            operationId = "opGetAllBootcamps",
+                            summary = "Obtiene todas los bootcamps permitiendo ordenar por parametros",
+                            parameters = {
+                                    @Parameter(in = ParameterIn.QUERY, name = "size", required = false,description = "Cantidad de elementos por página"),
+                                    @Parameter(in = ParameterIn.QUERY, name = "page", required = false,description = "Número de página"),
+                                    @Parameter(in = ParameterIn.QUERY, name = "sort", required = false,description = "Orden ascendente o descendente el valor es asc o desc"),
+                                    @Parameter(in = ParameterIn.QUERY, name = "sortBy", required = false, description = "Ordenar por name o cap")
+                            },
+                            responses = {
+                                    @ApiResponse(responseCode = "200", description = "Bootcamps obtenidos exitosamente"),
+                                    @ApiResponse(responseCode = "400", description = "Solicitud incorrecta")
+                            }
+                    )
+            )
     })
     @Bean
     public RouterFunction<ServerResponse> routerFunction(BootcampHandlerImpl bootcampHandler){
